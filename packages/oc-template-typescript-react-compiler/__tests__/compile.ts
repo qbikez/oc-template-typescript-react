@@ -2,11 +2,13 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
 
 process.env.TSC_SKIP_TYPECHECK = "true";
 
+import fs from "fs-extra";
+import path from "path";
+
 const _ = require("lodash");
-const fs = require("fs-extra");
 const nodeDir = require("node-dir");
-const path = require("path");
 const compile = require("../lib/compile.js");
+
 jest.mock("oc-template-typescript-react", () => ({
   getInfo() {
     return {
@@ -154,7 +156,7 @@ test("When files writing fails should return an error", done => {
   );
   const spy = jest
     .spyOn(fs, "ensureDir")
-    .mockImplementation(jest.fn((a, cb) => cb("sorry I failed")));
+    .mockImplementation(jest.fn((a, cb: any) => cb("sorry I failed")));
 
   const options = {
     componentPackage: componentPackage("react-component"),
