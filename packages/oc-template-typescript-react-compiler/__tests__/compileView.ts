@@ -2,7 +2,7 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = 50000;
 
 import path from "path";
 import fs from "fs-extra";
-const compileView = require("../lib/compileView.js");
+import compileView from "../lib/compileView";
 
 test("valid component", done => {
   const componentPath = path.join(__dirname, "../../../mocks/react-component");

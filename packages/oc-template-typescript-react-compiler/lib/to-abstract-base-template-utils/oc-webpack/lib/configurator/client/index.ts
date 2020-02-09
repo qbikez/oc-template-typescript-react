@@ -8,9 +8,11 @@ const webpack = require("webpack");
 const resolve = require("resolve");
 const _ = require("lodash");
 
+import eslint from "eslint";
+
 const createExcludeRegex = require("../createExcludeRegex");
 
-module.exports = options => {
+export default options => {
   const buildPath = options.buildPath || "/build";
   const production = options.production;
   process.env.BABEL_ENV = production ? "production" : "development";
@@ -24,7 +26,7 @@ module.exports = options => {
     ? "oc__[path][name]-[ext]__[local]__[hash:base64:8]"
     : "[local]__[hash:base64:8]";
 
-  const getStyleLoaders = (cssOptions, preProcessor) => {
+  const getStyleLoaders = (cssOptions, preProcessor?) => {
     const loaders = [
       !production && require.resolve("style-loader"),
       production && {
@@ -87,11 +89,11 @@ module.exports = options => {
         async: !production,
         useTypescriptIncrementalApi: true,
         checkSyntacticErrors: true,
-        resolveModuleNameModule: process.versions.pnp
-          ? path.join(__dirnamem, "..", pnpTs.js)
+        resolveModuleNameModule: (process.versions as any).pnp
+          ? path.join(__dirname, "..", "pnpTs.js")
           : undefined,
-        resolveTypeReferenceDirectiveModule: process.versions.pnp
-          ? path.join(__dirnamem, "..", pnpTs.js)
+        resolveTypeReferenceDirectiveModule: (process.versions as any).pnp
+          ? path.join(__dirname, "..", "pnpTs.js")
           : undefined,
         tsconfig: path.join(options.componentPath, "tsconfig.json"),
         reportFiles: [
@@ -140,7 +142,7 @@ module.exports = options => {
                 baseConfig: (() => {
                   // We allow overriding the config only if the env variable is set
                   if (process.env.EXTEND_ESLINT === "true") {
-                    const eslintCli = new eslint.CLIEngine();
+                    const eslintCli = new eslint.CLIEngine({});
                     let eslintConfig;
                     try {
                       eslintConfig = eslintCli.getConfigForFile(

@@ -1,18 +1,23 @@
 "use strict";
 
-const async = require("async");
-const fs = require("fs-extra");
-const hashBuilder = require("oc-hash-builder");
-const MemoryFS = require("memory-fs");
-const path = require("path");
+import async from "async";
+import fs from "fs-extra";
+import hashBuilder from "oc-hash-builder";
+import MemoryFS from "memory-fs";
+import path from "path";
+
+import ocwebpack from "./to-abstract-base-template-utils/oc-webpack";
 
 const {
   compiler,
-  configurator: { server: webpackConfigurator }
-} = require("./to-abstract-base-template-utils/oc-webpack");
+  configurator: {
+    server: webpackConfigurator
+  }
+} = ocwebpack;
+
 const higherOrderServerTemplate = require("./higherOrderServerTemplate");
 
-module.exports = (options, callback) => {
+export default (options, callback) => {
   const componentPath = options.componentPath;
   const serverFileName = options.componentPackage.oc.files.data;
   let serverPath = path.join(options.componentPath, serverFileName);

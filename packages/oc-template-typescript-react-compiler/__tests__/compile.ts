@@ -7,7 +7,7 @@ import path from "path";
 
 const _ = require("lodash");
 const nodeDir = require("node-dir");
-const compile = require("../lib/compile.js");
+import compile from "../lib/compile";
 
 jest.mock("oc-template-typescript-react", () => ({
   getInfo() {

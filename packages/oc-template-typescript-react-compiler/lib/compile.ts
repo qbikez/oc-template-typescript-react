@@ -1,11 +1,11 @@
 "use strict";
 
+import compileServer from "./compileServer";
+import compileView from "./compileView";
+
 const createCompile = require("oc-generic-template-compiler").createCompile;
 const compileStatics = require("oc-statics-compiler");
 const getInfo = require("oc-template-typescript-react").getInfo;
-
-const compileServer = require("./compileServer");
-const compileView = require("./compileView");
 const verifyConfig = require("./verifyConfig");
 
 const compiler = createCompile({
@@ -26,7 +26,7 @@ const compiler = createCompile({
 // verbose,
 // watch,
 // production
-module.exports = function compile(options, callback) {
+export default function compile(options, callback) {
   verifyConfig(options.componentPath);
 
   return compiler(options, callback);

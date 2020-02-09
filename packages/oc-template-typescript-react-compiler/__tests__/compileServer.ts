@@ -2,7 +2,7 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = 50000;
 
 const path = require("path");
 const fs = require("fs-extra");
-const compileServer = require("../lib/compileServer.js");
+import compileServer from "../lib/compileServer";
 
 const componentPath = path.join(__dirname, "../../../mocks/react-component");
 const publishPath = path.join(componentPath, "_packageCompileServerTest");

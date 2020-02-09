@@ -1,14 +1,15 @@
 /*jshint camelcase:false */
 "use strict";
 
-const MinifyPlugin = require("babel-minify-webpack-plugin");
-const externalDependenciesHandlers = require("oc-external-dependencies-handler");
-const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
-const path = require("path");
-const webpack = require("webpack");
-const resolve = require("resolve");
+import MinifyPlugin from "babel-minify-webpack-plugin";
+import externalDependenciesHandlers from "oc-external-dependencies-handler";
+import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
+import path from "path";
+import * as webpack from "webpack";
+import resolve from "resolve";
+import * as eslint from "eslint";
 
-module.exports = function webpackConfigGenerator(options) {
+export default function webpackConfigGenerator(options) {
   const production =
     options.production !== undefined ? !!options.production : true;
   const skipTypecheck =
@@ -26,7 +27,7 @@ module.exports = function webpackConfigGenerator(options) {
     production && new MinifyPlugin(),
     !skipTypecheck &&
       new ForkTsCheckerWebpackPlugin({
-        typescript: resolve.sync("typescript", {
+        typescript: (resolve as any).sync("typescript", {
           basedir: path.join(options.componentPath, "node_modules")
         }),
         compilerOptions: {
@@ -35,11 +36,11 @@ module.exports = function webpackConfigGenerator(options) {
         async: !production,
         useTypescriptIncrementalApi: true,
         checkSyntacticErrors: true,
-        resolveModuleNameModule: process.versions.pnp
-          ? path.join(__dirnamem, "..", pnpTs.js)
+        resolveModuleNameModule: (process.versions as any).pnp
+          ? path.join(__dirname, "..", "pnpTs.js")
           : undefined,
-        resolveTypeReferenceDirectiveModule: process.versions.pnp
-          ? path.join(__dirnamem, "..", pnpTs.js)
+        resolveTypeReferenceDirectiveModule: (process.versions as any).pnp
+          ? path.join(__dirname, "..", "pnpTs.js")
           : undefined,
         tsconfig: path.join(options.componentPath, "tsconfig.json"),
         reportFiles: [
@@ -90,7 +91,7 @@ module.exports = function webpackConfigGenerator(options) {
                 baseConfig: (() => {
                   // We allow overriding the config only if the env variable is set
                   if (process.env.EXTEND_ESLINT === "true") {
-                    const eslintCli = new eslint.CLIEngine();
+                    const eslintCli = new eslint.CLIEngine({});
                     let eslintConfig;
                     try {
                       eslintConfig = eslintCli.getConfigForFile(

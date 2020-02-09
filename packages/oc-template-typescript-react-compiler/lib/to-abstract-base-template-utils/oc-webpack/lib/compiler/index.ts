@@ -1,16 +1,23 @@
 "use strict";
 
-const MemoryFS = require("memory-fs");
-const webpack = require("webpack");
+import MemoryFS from "memory-fs";
+import webpack from "webpack";
 
 const memoryFs = new MemoryFS();
 
-module.exports = function compiler(config, callback) {
+export default function compiler(config, callback) {
   const logger = config.logger;
   delete config.logger;
 
   const compiler = webpack(config);
   compiler.outputFileSystem = memoryFs;
+  // {
+  //   ...memoryFs,
+  //   mkdir: undefined,
+  //   mkdirp: undefined, 
+  //   rmdir: undefined,
+  //   unlink: undefined
+  // };
 
   compiler.run((error, stats) => {
     let softError;

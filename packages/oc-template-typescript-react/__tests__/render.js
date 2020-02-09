@@ -1,6 +1,5 @@
-const render = require("../lib/render.js");
-
 jest.mock("../lib/to-be-published/get-js-from-url");
+const render = require("../lib/render");
 
 describe("render method", () => {
   describe("when invoked with a valid template", () => {

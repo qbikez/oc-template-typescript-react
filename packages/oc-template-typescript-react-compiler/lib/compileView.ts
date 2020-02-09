@@ -10,16 +10,18 @@ const path = require("path");
 const reactComponentWrapper = require("oc-react-component-wrapper");
 const strings = require("oc-templates-messages");
 
+import ocwebpack from "./to-abstract-base-template-utils/oc-webpack";
+
 const {
   compiler,
   configurator: { client: webpackConfigurator }
-} = require("./to-abstract-base-template-utils/oc-webpack");
+} = ocwebpack;
 
 const fontFamilyUnicodeParser = require("./to-abstract-base-template-utils/font-family-unicode-parser");
 const reactOCProviderTemplate = require("./reactOCProviderTemplate");
 const viewTemplate = require("./viewTemplate");
 
-module.exports = (options, callback) => {
+export default (options, callback) => {
   const viewFileName = options.componentPackage.oc.files.template.src;
   const componentPath = options.componentPath;
   let viewPath = path.join(options.componentPath, viewFileName);
