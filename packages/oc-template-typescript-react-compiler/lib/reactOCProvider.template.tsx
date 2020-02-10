@@ -1,5 +1,5 @@
 import React from 'react';
-import View from './view.template';
+import View from './component.template';
 
 class OCProvider extends React.Component {
   componentDidMount(){
