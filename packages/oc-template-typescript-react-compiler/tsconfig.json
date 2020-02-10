@@ -1,0 +1,22 @@
+{
+    "extends": "../../tsconfig.json",
+    "exclude": [
+      "./scaffold/",
+      "*.template",
+      "node_modules",
+      "dist/"
+    ],
+    "include": [
+      "**/*.ts",
+      "**/*.js"
+    ],
+    "typeAcquisition": {
+      "exclude": ["immer"]
+    },
+    "compilerOptions": {
+      "declaration": false,
+      "allowJs": true,
+      "rootDir": ".",
+      "outDir": "dist/"
+    },
+  }

@@ -1,9 +1,9 @@
-const chalk = require("chalk");
-const fs = require("fs");
-const resolve = require("resolve");
-const path = require("path");
-const os = require("os");
-const immer = require("immer").produce;
+import chalk from "chalk";
+import * as fs from "fs";
+import * as resolve from "resolve";
+import * as path from "path";
+import * as os from "os";
+import { produce as immer } from "immer";
 
 function writeJson(fileName, object) {
   fs.writeFileSync(
@@ -101,7 +101,7 @@ function verifyTypeScriptSetup(componentPath) {
     getNewLine: () => os.EOL
   };
 
-  const messages = [];
+  const messages: any[] = [];
   let appTsConfig;
   let parsedTsConfig;
   let parsedCompilerOptions;
@@ -232,4 +232,4 @@ function verifyTypeScriptSetup(componentPath) {
   }
 }
 
-module.exports = verifyTypeScriptSetup;
+export default verifyTypeScriptSetup;

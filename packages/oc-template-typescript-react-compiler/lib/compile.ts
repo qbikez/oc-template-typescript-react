@@ -6,7 +6,7 @@ import compileView from "./compileView";
 const createCompile = require("oc-generic-template-compiler").createCompile;
 const compileStatics = require("oc-statics-compiler");
 const getInfo = require("oc-template-typescript-react").getInfo;
-const verifyConfig = require("./verifyConfig");
+import verifyConfig from "./verifyConfig";
 
 const compiler = createCompile({
   compileServer,

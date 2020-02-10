@@ -18,6 +18,9 @@ test("valid component", done => {
   };
 
   compileView(options, (err, compiledViewInfo) => {
+    if (err) {
+      throw err;
+    }
     compiledViewInfo.bundle.hashKey = "dummyData";
     const viewHashKey = compiledViewInfo.template.hashKey;
     compiledViewInfo.template.hashKey = "dummyData";

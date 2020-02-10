@@ -4,7 +4,7 @@
       "module": "commonjs",
       "lib": ["es2015"],
       "strict": true,
-      "declaration": true,
+      "declaration": false,
       "outDir": "dist",
       "sourceMap": true,
       "noImplicitAny": false,
