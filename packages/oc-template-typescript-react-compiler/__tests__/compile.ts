@@ -5,8 +5,8 @@ process.env.TSC_SKIP_TYPECHECK = "true";
 import fs from "fs-extra";
 import path from "path";
 
-const _ = require("lodash");
-const nodeDir = require("node-dir");
+import _ from "lodash";
+import nodeDir from "node-dir";
 import compile from "../lib/compile";
 
 jest.mock("oc-template-typescript-react", () => ({

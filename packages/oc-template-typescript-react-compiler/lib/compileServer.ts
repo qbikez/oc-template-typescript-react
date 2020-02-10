@@ -15,7 +15,7 @@ const {
   }
 } = ocwebpack;
 
-const higherOrderServerTemplate = require("./higherOrderServerTemplate");
+import higherOrderServerTemplate from "./higherOrderServer";
 
 export default (options, callback) => {
   const componentPath = options.componentPath;

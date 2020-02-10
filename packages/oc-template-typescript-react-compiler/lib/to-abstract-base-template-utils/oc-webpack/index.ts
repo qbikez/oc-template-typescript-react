@@ -1,9 +1,12 @@
 "use strict";
 
 import compiler from "./lib/compiler";
-import configurator from "./lib/configurator";
+import { client, server } from "./lib/configurator";
 
 export default {
   compiler,
-  configurator
+  configurator: {
+    client,
+    server
+  }
 };

@@ -1,9 +1,7 @@
 "use strict";
 
-import client from "./client";
-import server from "./server";
+import _client from "./client";
+import _server from "./server";
 
-export default {
-  client,
-  server
-};
+export const client = _client;  
+export const server = _server;

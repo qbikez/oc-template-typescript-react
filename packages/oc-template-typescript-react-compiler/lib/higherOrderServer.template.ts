@@ -1,12 +1,4 @@
-const removeTsExtension = path => path.replace(/\.tsx?$/, "");
-
-const higherOrderServerTemplate = ({
-  serverPath,
-  bundleHashKey,
-  componentName,
-  componentVersion
-}) => `
-import { data as dataProvider } from '${removeTsExtension(serverPath)}';
+import { data as dataProvider } from './server.template';
 
 export const data = (context : any, callback : (error: any, data?: any) => void) => {
   dataProvider(context, (error: any, model: any) => {
@@ -16,20 +8,17 @@ export const data = (context : any, callback : (error: any, data?: any) => void)
     const props = Object.assign({}, model, {
       _staticPath: context.staticPath,
       _baseUrl: context.baseUrl,
-      _componentName: "${componentName}",
-      _componentVersion: "${componentVersion}"
+      _componentName: "__componentName__",
+      _componentVersion: "__componentVersion__"
     });
     const srcPathHasProtocol = context.staticPath.indexOf("http") === 0;
     const srcPath = srcPathHasProtocol ? context.staticPath : ("https:" + context.staticPath);
     return callback(null, Object.assign({}, {
       reactComponent: {
-        key: "${bundleHashKey}",
+        key: "__bundleHashKey__",
         src: srcPath + "react-component.js",
         props
       }
     }));
   });
 }
-`;
-
-module.exports = higherOrderServerTemplate;
