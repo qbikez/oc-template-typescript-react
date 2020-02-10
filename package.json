@@ -2,7 +2,7 @@
   "devDependencies": {
     "@types/jest": "^25.1.2",
     "@types/node": "^13.7.0",
-    "@types/react": "^16.9.6",
+    "@types/react": "^16.9.19",
     "codecov": "3.0.2",
     "husky": "^0.14.3",
     "jest": "^25.1.0",
