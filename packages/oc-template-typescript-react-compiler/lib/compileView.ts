@@ -18,8 +18,8 @@ const {
 } = ocwebpack;
 
 const fontFamilyUnicodeParser = require("./to-abstract-base-template-utils/font-family-unicode-parser");
-import reactOCProviderTemplate from "./reactOCProvider";
-import viewTemplate from "./view";
+import reactOCProviderTemplate from "./templates/reactOCProvider";
+import viewTemplate from "./templates/view";
 
 export default (options, callback) => {
   const viewFileName = options.componentPackage.oc.files.template.src;

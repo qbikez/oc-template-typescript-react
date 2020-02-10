@@ -11,7 +11,7 @@ const higherOrderServerTemplate = ({
 }) => {
   const template = fs.readFileSync(`${__dirname}/higherOrderServer.template.ts`).toString();
   return template
-    .replace('./server.template', removeTsExtension(serverPath))
+    .replace('./higherOrderServer.template.server', removeTsExtension(serverPath))
     .replace('__componentName__', componentName)
     .replace('__componentVersion__', componentVersion)
     .replace('__bundleHashKey__', bundleHashKey);

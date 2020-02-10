@@ -6,7 +6,7 @@ const viewTemplate = ({
   bundleHash,
   bundleName
 }) => {
-  const scriptTemplate = fs.readFileSync(`${__dirname}/viewScript.template.js`).toString();
+  const scriptTemplate = fs.readFileSync(`${__dirname}/view.template.script.js`).toString();
   const template = fs.readFileSync(`${__dirname}/view.template.jsx`).toString();
   return template
     .replace('const component = ', '')

@@ -1,4 +1,4 @@
-import { data as dataProvider } from './server.template';
+import { data as dataProvider } from './higherOrderServer.template.server';
 
 export const data = (context : any, callback : (error: any, data?: any) => void) => {
   dataProvider(context, (error: any, model: any) => {
