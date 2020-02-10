@@ -76,8 +76,8 @@ const componentScenarios = (componentName, i) => ({
 
 const components = [
   "react-component",
-  "react-component-with-css",
-  "react-component-with-scss"
+  //"react-component-with-css",
+  //"react-component-with-scss"
 ].map(componentScenarios);
 
 const execute = (options, cb) => {

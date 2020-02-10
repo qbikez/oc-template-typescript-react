@@ -19,7 +19,7 @@ const {
 
 const fontFamilyUnicodeParser = require("./to-abstract-base-template-utils/font-family-unicode-parser");
 import reactOCProviderTemplate from "./reactOCProvider";
-import viewTemplate from "./viewTemplate";
+import viewTemplate from "./view";
 
 export default (options, callback) => {
   const viewFileName = options.componentPackage.oc.files.template.src;
