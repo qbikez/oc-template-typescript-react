@@ -2,7 +2,7 @@
   "name": "oc-template-typescript-react-compiler",
   "version": "3.2.5",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/guestlinelabs/oc-template-typescript-react.git"
@@ -28,7 +28,7 @@
     "copy": "cpy \"lib/templates/*.template.*\" dist/ --parents",
     "build": "tsc --project ./tsconfig.json && npm run copy",
     "npm": "jest --watch --runInBand",
-    "test:dist": "npx jest --testMatch \"**/dist/__tests__/**/*.js\""
+    "test:dist": "npx jest --runInBand --testMatch \"**/dist/__tests__/**/*.js\""
   },
   "dependencies": {
     "@babel/core": "7.7.7",
