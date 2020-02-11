@@ -9,15 +9,13 @@ import path from "path";
 import ocwebpack from "./to-abstract-base-template-utils/oc-webpack";
 
 const {
-  compiler,
-  configurator: {
-    server: webpackConfigurator
-  }
+  compilerAsync: compiler,
+  configurator: { server: webpackConfigurator }
 } = ocwebpack;
 
 import higherOrderServerTemplate from "./templates/higherOrderServer";
 
-export default (options, callback) => {
+export const compileServerAsync = async options => {
   const componentPath = options.componentPath;
   const serverFileName = options.componentPackage.oc.files.data;
   let serverPath = path.join(options.componentPath, serverFileName);
@@ -44,6 +42,8 @@ export default (options, callback) => {
     "__oc_higherOrderServer.ts"
   );
 
+  await fs.outputFile(higherOrderServerPath, higherOrderServerContent);
+
   const config = webpackConfigurator({
     componentPath,
     serverPath: higherOrderServerPath,
@@ -53,57 +53,49 @@ export default (options, callback) => {
     production
   });
 
-  async.waterfall(
-    [
-      next =>
-        fs.outputFile(higherOrderServerPath, higherOrderServerContent, next),
-      next => {
-        return compiler(config, next);
-      },
-      (data, next) => {
-        const basePath = path.join(tempFolder, "build");
-        const memory = new MemoryFS(data);
-        const getCompiled = fileName =>
-          memory.readFileSync(`${basePath}/${fileName}`, "UTF8");
+  const data = await compiler(config);
 
-        return fs.ensureDir(publishPath, err => {
-          if (err) return next(err);
-          const result = { "server.js": getCompiled(config.output.filename) };
+  const basePath = path.join(tempFolder, "build");
+  const memory = new MemoryFS(data);
+  const getCompiled = (fileName: string) =>
+    memory.readFileSync(`${basePath}/${fileName}`, "UTF8");
 
-          if (!production) {
-            try {
-              result["server.js.map"] = getCompiled(
-                `${config.output.filename}.map`
-              );
-            } catch (e) {
-              // skip sourcemap if it doesn't exist
-            }
-          }
+  await fs.ensureDir(publishPath);
 
-          next(null, result);
-        });
-      },
-      (compiledFiles, next) => {
-        return async.eachOf(
-          compiledFiles,
-          (fileContent, fileName, next) =>
-            fs.writeFile(path.join(publishPath, fileName), fileContent, next),
-          err =>
-            next(
-              err,
-              err
-                ? null
-                : {
-                    type: "node.js",
-                    hashKey: hashBuilder.fromString(
-                      compiledFiles[publishFileName]
-                    ),
-                    src: publishFileName
-                  }
-            )
-        );
-      }
-    ],
-    (err, data) => fs.remove(tempFolder, err2 => callback(err, data))
+  const compiledFiles: any[string] = {
+    "server.js": getCompiled(config.output.filename)
+  };
+
+  if (!production) {
+    try {
+      compiledFiles["server.js.map"] = getCompiled(
+        `${config.output.filename}.map`
+      );
+    } catch (e) {
+      // skip sourcemap if it doesn't exist
+    }
+  }
+
+  await Promise.all(
+    Object.keys(compiledFiles).map(fileName => {
+      const fileContent = compiledFiles[fileName];
+      return fs.writeFile(path.join(publishPath, fileName), fileContent);
+    })
   );
+
+  await fs.remove(tempFolder);
+
+  return {
+    type: "node.js",
+    hashKey: hashBuilder.fromString(compiledFiles[publishFileName]),
+    src: publishFileName
+  };
 };
+
+export const compileServer = async (options, callback) => {
+  compileServerAsync(options)
+    .then(data => callback(null, data))
+    .catch(err => callback(err, null));
+};
+
+export default compileServer;

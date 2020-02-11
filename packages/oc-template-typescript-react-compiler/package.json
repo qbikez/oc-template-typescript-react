@@ -99,6 +99,7 @@
   ],
   "devDependencies": {
     "@types/eslint": "^6.1.8",
+    "@types/fs-extra": "^8.0.1",
     "@types/lodash": "^4.14.149",
     "@types/memory-fs": "^0.3.2",
     "@types/node-dir": "0.0.33",

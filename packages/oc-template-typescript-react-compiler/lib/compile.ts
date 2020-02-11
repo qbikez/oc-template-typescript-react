@@ -2,8 +2,7 @@
 
 import compileServer from "./compileServer";
 import compileView from "./compileView";
-
-const createCompile = require("oc-generic-template-compiler").createCompile;
+import { createCompile } from "oc-generic-template-compiler";
 const compileStatics = require("oc-statics-compiler");
 const getInfo = require("oc-template-typescript-react").getInfo;
 import verifyConfig from "./verifyConfig";
