@@ -13,9 +13,9 @@ test("Throw exception when js is not valid", () => {
     "var oc=oc||{};oc.components=oc.components||{},oc.components.c6fcae4d23d07fd9a7e100508caf8119e998d7a9=nojavascript);";
   const key = "c6fcae4d23d07fd9a7e100508caf8119e998d7a9";
 
-  expect(() =>
-    getCompiledTemplate(template, key)
-  ).toThrowErrorMatchingSnapshot();
+  expect(() => getCompiledTemplate(template, key)).toThrowError(
+    /Unexpected token/
+  );
 });
 
 test("Be undefined when key is not valid", () => {

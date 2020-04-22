@@ -116,15 +116,15 @@ export default function webpackConfigGenerator(options) {
           include: path.join(options.componentPath, "src")
         },
         {
-          test: /\.tsx?$/,
+          test: /\.ts$/,
           exclude: /node_modules/,
           use: [
             {
               loader: require.resolve("babel-loader"),
               options: {
-                customize: require.resolve(
-                  "babel-preset-react-app/webpack-overrides"
-                ),
+                // customize: require.resolve(
+                //   "babel-preset-react-app/webpack-overrides"
+                // ),
                 cacheCompression: false,
                 sourceMaps,
                 sourceRoot: path.join(options.serverPath, ".."),
@@ -140,15 +140,15 @@ export default function webpackConfigGenerator(options) {
             }
           ]
         },
-        {
-          test: /\.jsx?$/,
-          exclude: /node_modules/,
-          use: [
-            production && {
-              loader: require.resolve("infinite-loop-loader")
-            }
-          ].filter(Boolean)
-        }
+        // {
+        //   test: /\.jsx?$/,
+        //   exclude: /node_modules/,
+        //   use: [
+        //     production && {
+        //       loader: require.resolve("infinite-loop-loader")
+        //     }
+        //   ].filter(Boolean)
+        // }
       ]
     },
     resolve: {
